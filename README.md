@@ -152,6 +152,8 @@ echo "http://$GATEWAY_URL/productpage"
 - 五星黑色评分 （productpage-v1 -> reviews-v2 -> ratings-v1)
 - 五星红色评分 （productpage-v1 -> reviews-v3 -> ratings-v1)
 
+这是因为在没有配置VirtualService时，默认按照round-robin负载均衡方式分发流量。
+
 注意：
 - 此时流量是通过Istio Ingress Gateway进来
 - 不需要有对应的productpage route
