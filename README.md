@@ -178,6 +178,19 @@ oc -n istio-system get route kiali
 - Istio Performance Dashboard
 - Istio Wasm Extension Dashboard
 
+### 模拟多个用户同时访问Bookinfo程序
+
+用[siege](https://github.com/JoeDog/siege)模拟30秒内并发10个用户来访问Bookinfo程序：
+```bash
+siege -t30s -c10 http://$GATEWAY_URL/productpage
+```
+
+同时在Kiali中打开bookinfo的Graph观察应用拓扑：
+![graph](graph.jpeg)
+
+在Display中勾选Show / Traffic Animation后，可以看到网络流量流动的动画效果：
+![traffic_animation](traffic_animation.jpeg)
+
 ## References
 
 - [Bookinfo示例程序](https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.10/html/service_mesh/ossm-tutorial-bookinfo-overview_ossm-create-mesh)
