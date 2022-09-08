@@ -16,7 +16,7 @@ reviews 微服务有三个版本：
 - 版本 v3 调用 ratings 服务，并以一到五个红色星来代表对本书的评分。
 
 Bookinfo应用程序的应用拓扑图如下：
-![bookinfo](./img/bookinfo.jpeg)
+![bookinfo](https://istio.io/latest/docs/examples/bookinfo/noistio.svg)
 
 ## 部署Bookinfo示例程序
 
@@ -39,7 +39,11 @@ Bookinfo应用程序的应用拓扑图如下：
 目录结构说明：
 ```bash
 ├── app # Kuberentes YAML
-├── istio # Istio配置
+├── istio # Istio配置，采用kustomization的base/overlays目录结构
+│   ├── base # Istio公共配置
+│   └── overlays
+│       ├── mtls # 启用了mtls的配置
+│       └── nomtls # 没有启用mtls的配置
 └── servicemesh # OpenShift Service Mesh配置
 ```
 
@@ -98,7 +102,7 @@ serviceaccount/bookinfo-productpage created
 ### 配置Istio
 
 ```bash
-oc apply -n bookinfo -f istio
+oc apply -n bookinfo -k istio/overlays/nomtls
 ```
 
 将创建以下Istio资源：
@@ -112,7 +116,8 @@ destinationrule.networking.istio.io/reviews created
 ```
 
 说明：
-- 这里使用没有启用MutualTLS的DetinationRule
+- 这里使用没有启用mTLS的DetinationRule
+
 
 ### 查看Istio Ingress Gateway
 
@@ -191,6 +196,22 @@ siege -t30s -c10 http://$GATEWAY_URL/productpage
 在Display中勾选Show / Traffic Animation后，可以看到网络流量流动的动画效果：
 ![versioned_traffic_animation](./img/versioned_traffic_animation.jpeg)
 
+### 启用mTLS
+
+请先确保启用了mTLS：
+- https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.10/html-single/service_mesh/index#ossm-security-enabling-strict-mtls_ossm-security
+
+在Bookinfo程序中启用了mTLS的DetinationRule:
+```bash
+oc apply -n bookinfo -k istio/overlays/mtls
+```
+
+在Kiali的Overview中查看`bookinfo`命名空间上有【锁头】图标。
+![overview_graph](./img/overview_graph.jpeg)
+
+在Graph中，选择Show Badges / Security，可以看到路由中显示有【锁头】图标。
+![graph_mtls](./img/graph_mtls.jpeg)
+
 ## References
 
 - [Bookinfo示例程序](https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.10/html/service_mesh/ossm-tutorial-bookinfo-overview_ossm-create-mesh)
@@ -198,3 +219,4 @@ siege -t30s -c10 http://$GATEWAY_URL/productpage
 - [Bookinfo程序Istio Gateway配置](https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/networking/bookinfo-gateway.yaml)
 - [Bookinfo程序Istio DestinationRule配置](https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/networking/destination-rule-all.yaml)
 - [Bookinfo程序Istio DestinationRule MutualTLS配置](https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/networking/destination-rule-all-mtls.yaml)
+- [OpenShift Service Mesh 2.2 samples](https://github.com/maistra/istio/tree/maistra-2.2/samples)
