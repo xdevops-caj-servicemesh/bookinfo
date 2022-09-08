@@ -33,6 +33,15 @@ Bookinfo应用程序的应用拓扑图如下：
 2. 已经创建了`istio-system`命名空间
 3. 已经在`istio-system`命名空间上创建了ServiceMeshControlPlane
 
+### 目录结构
+
+目录结构说明：
+```bash
+├── app # 部署YAML
+├── istio # Istio配置
+└── servicemesh # OpenShift Service Mesh配置
+```
+
 ### 创建应用程序所在的项目
 
 ```bash
