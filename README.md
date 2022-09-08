@@ -207,7 +207,7 @@ oc apply -n bookinfo -k istio/overlays/mtls
 ```
 
 在Kiali的Overview中查看`bookinfo`命名空间上有【锁头】图标。
-![overview_graph](./img/overview_graph.jpeg)
+![overview_mtls](./img/overview_mtls.jpeg)
 
 在Graph中，选择Show Badges / Security，可以看到路由中显示有【锁头】图标。
 ![graph_mtls](./img/graph_mtls.jpeg)
