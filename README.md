@@ -38,7 +38,7 @@ Bookinfo应用程序的应用拓扑图如下：
 
 目录结构说明：
 ```bash
-├── app # 部署YAML
+├── app # Kuberentes YAML
 ├── istio # Istio配置
 └── servicemesh # OpenShift Service Mesh配置
 ```
