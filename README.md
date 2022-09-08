@@ -214,6 +214,55 @@ oc apply -n bookinfo -k istio/overlays/mtls
 在Graph中，选择Show Badges / Security，可以看到路由中显示有【锁头】图标。
 ![graph_mtls](./img/graph_mtls.jpeg)
 
+
+### Traffic Management
+
+#### 将流量都路由给微服务的v1版本
+
+References：
+- https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.10/html-single/service_mesh/index#ossm-routing-bookinfo-applying_routing-traffic
+
+VirtualServcie sample:
+- https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/networking/virtual-service-all-v1.yaml
+
+创建VirtualService，将流量都路由给微服务的v1版本：
+```bash
+oc apply -n bookinfo -k istio/overlays/all-v1
+```
+在`istio/overlays/all-v1`目录下，全部微服务的VirtualService的`subset`都为`v1`，根据这些微服务的DestinationRule配置，则会匹配到这些微服务的labels有`version: v1`的deployment。
+
+Detinaion YML片段：
+```yaml
+- name: v1
+    labels:
+      version: v1
+```
+
+Deployment YAML片段：
+```yaml
+spec:
+  selector:
+    matchLabels:
+      version: v1
+```
+
+在浏览器中访问Bookinfo程序的产品页面：
+```bash
+echo "http://$GATEWAY_URL/productpage"
+```
+
+这时无论如何刷新Bookingfo程序的产品页面，都不能看到评分星级（因为reviews-v1服务没有调用ratings服务）。
+
+用[siege](https://github.com/JoeDog/siege)模拟30秒内并发10个用户来访问Bookinfo程序：
+```bash
+siege -t30s -c10 http://$GATEWAY_URL/productpage
+```
+
+同时在Kiali中打开bookinfo的Graph观察应用拓扑，选择显示为“Versioned App Graph”
+，在Display中勾选Show / Traffic Animation后，可以看到网络流量只在微服务的v1版本中流动：
+![all_v1_traffic](./img/all_v1_traffic.jpeg)
+
+
 ## References
 
 - [Bookinfo示例程序](https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.10/html/service_mesh/ossm-tutorial-bookinfo-overview_ossm-create-mesh)
