@@ -29,6 +29,7 @@ Bookinfo应用程序的应用拓扑图如下：
 角色权限：
 - 本例采用Cluster Admin操作
 
+前提条件：
 1. 已经在OpenShift上安装了OpenShift Service Mesh
 2. 已经创建了`istio-system`命名空间
 3. 已经在`istio-system`命名空间上创建了ServiceMeshControlPlane
@@ -180,7 +181,7 @@ oc -n istio-system get route kiali
 ## References
 
 - [Bookinfo示例程序](https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.10/html/service_mesh/ossm-tutorial-bookinfo-overview_ossm-create-mesh)
-- [Bookinfo程序部署YAML](bookinfo -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/platform/kube/bookinfo.yaml)
-- [Bookinfo程序Istio-Gateway配置](oc apply -n bookinfo -f https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/networking/bookinfo-gateway.yaml)
-- [Bookinfo程序Istio-DestinationRule配置](https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/networking/destination-rule-all.yaml)
-- [Bookinfo程序Istio-DestinationRule-MutualTLS配置](https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/networking/destination-rule-all-mtls.yaml)
+- [Bookinfo程序部署YAML](https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/platform/kube/bookinfo.yaml)
+- [Bookinfo程序Istio Gateway配置](https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/networking/bookinfo-gateway.yaml)
+- [Bookinfo程序Istio DestinationRule配置](https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/networking/destination-rule-all.yaml)
+- [Bookinfo程序Istio DestinationRule MutualTLS配置](https://raw.githubusercontent.com/Maistra/istio/maistra-2.2/samples/bookinfo/networking/destination-rule-all-mtls.yaml)
