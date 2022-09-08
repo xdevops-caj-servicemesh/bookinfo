@@ -201,7 +201,7 @@ siege -t30s -c10 http://$GATEWAY_URL/productpage
 请先确保启用了mTLS：
 - https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.10/html-single/service_mesh/index#ossm-security-enabling-strict-mtls_ossm-security
 
-在Bookinfo程序中启用了mTLS的DetinationRule:
+在Bookinfo程序中启用有mTLS的DetinationRule:
 ```bash
 oc apply -n bookinfo -k istio/overlays/mtls
 ```
