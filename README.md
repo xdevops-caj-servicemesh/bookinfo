@@ -130,7 +130,7 @@ oc -n istio-system get route istio-ingressgateway
 export GATEWAY_URL=$(oc -n istio-system get route istio-ingressgateway -o jsonpath='{.spec.host}')
 ```
 
-### 验证Bookinfo程序
+## 验证Bookinfo程序
 
 验证Pod状态：
 ```bash
@@ -159,7 +159,7 @@ echo "http://$GATEWAY_URL/productpage"
 - 不需要有对应的productpage route
 
 
-### 访问Kiali控制台
+## 访问Kiali控制台
 
 访问Kiali地址：
 ```bash
@@ -185,7 +185,7 @@ oc -n istio-system get route kiali
 - Istio Performance Dashboard
 - Istio Wasm Extension Dashboard
 
-### 模拟多个用户同时访问Bookinfo程序
+## 模拟多个用户同时访问Bookinfo程序
 
 用[siege](https://github.com/JoeDog/siege)模拟30秒内并发10个用户来访问Bookinfo程序：
 ```bash
@@ -198,7 +198,7 @@ siege -t30s -c10 http://$GATEWAY_URL/productpage
 在Display中勾选Show / Traffic Animation后，可以看到网络流量流动的动画效果：
 ![versioned_traffic_animation](./img/versioned_traffic_animation.jpeg)
 
-### 启用mTLS
+## 启用mTLS
 
 请先确保启用了mTLS：
 - https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.10/html-single/service_mesh/index#ossm-security-enabling-strict-mtls_ossm-security
@@ -215,9 +215,9 @@ oc apply -n bookinfo -k istio/overlays/mtls
 ![graph_mtls](./img/graph_mtls.jpeg)
 
 
-### Traffic Management
+## Traffic Management
 
-#### 将流量都路由给微服务的v1版本
+### 将流量都路由给微服务的v1版本
 
 References：
 - https://access.redhat.com/documentation/zh-cn/openshift_container_platform/4.10/html-single/service_mesh/index#ossm-routing-bookinfo-applying_routing-traffic
