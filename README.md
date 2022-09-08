@@ -16,7 +16,7 @@ reviews 微服务有三个版本：
 - 版本 v3 调用 ratings 服务，并以一到五个红色星来代表对本书的评分。
 
 Bookinfo应用程序的应用拓扑图如下：
-- ![bookinfo](bookinfo.jpeg)
+![bookinfo](bookinfo.jpeg)
 
 ## 部署Bookinfo示例程序
 
