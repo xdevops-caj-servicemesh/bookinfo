@@ -16,7 +16,7 @@ reviews 微服务有三个版本：
 - 版本 v3 调用 ratings 服务，并以一到五个红色星来代表对本书的评分。
 
 Bookinfo应用程序的应用拓扑图如下：
-![bookinfo](bookinfo.jpeg)
+![bookinfo](./img/bookinfo.jpeg)
 
 ## 部署Bookinfo示例程序
 
@@ -185,11 +185,11 @@ oc -n istio-system get route kiali
 siege -t30s -c10 http://$GATEWAY_URL/productpage
 ```
 
-同时在Kiali中打开bookinfo的Graph观察应用拓扑：
-![graph](graph.jpeg)
+同时在Kiali中打开bookinfo的Graph观察应用拓扑，选择显示为“Versioned App Graph”来查看不同版本的服务关系：
+![versioned_graph](./img/versioned_graph.jpeg)
 
 在Display中勾选Show / Traffic Animation后，可以看到网络流量流动的动画效果：
-![traffic_animation](traffic_animation.jpeg)
+![versioned_traffic_animation](./img/versioned_traffic_animation.jpeg)
 
 ## References
 
